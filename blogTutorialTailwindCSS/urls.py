@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from posts.views import homepage, post, about, search, postlist, allposts
@@ -28,6 +28,7 @@ urlpatterns = [
     path('search/', search, name='search'),
     path('postlist/<slug>/', postlist, name='postlist'),
     path('posts/', allposts, name='allposts'),
+    path('', include('posts.urls')),
 ]
 
 if settings.DEBUG:

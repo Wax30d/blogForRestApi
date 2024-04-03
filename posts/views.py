@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from .models import Post, Category, Author
 from django.db.models import Q
+from .serializers import AuthorSerializer, CategorySerializer, PostSerializer
+from rest_framework import viewsets
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 
 def homepage(request):
@@ -67,3 +71,16 @@ def postlist(request, slug):
         'category': category,
     }
     return render(request, 'post_list.html', context)
+
+
+class AuthorViewSet(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
